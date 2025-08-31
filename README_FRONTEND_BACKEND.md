@@ -1,14 +1,15 @@
 # Knowledge Graph Chatbot - Frontend/Backend Setup
 
-This document describes how to run the Knowledge Graph Chatbot using the new Flask backend and HTML/CSS/JavaScript frontend.
+This document describes how to run the Knowledge Graph Chatbot using the Flask backend and HTML/CSS/JavaScript frontend with a unified startup process.
 
 ## Architecture
 
-The new setup consists of:
+The setup consists of:
 
--   **Backend**: Flask API server (`backend/app.py`)
+-   **Backend**: Flask API server (`backend/app.py`) that serves both API endpoints and frontend files
 -   **Frontend**: HTML/CSS/JavaScript interface (`frontend/`)
 -   **Communication**: RESTful API calls between frontend and backend
+-   **Unified Startup**: Single command to start both frontend and backend (`run_app.bat`)
 
 ## Features
 
@@ -27,6 +28,7 @@ The new setup consists of:
 ### Backend Features
 
 -   RESTful API endpoints
+-   Frontend file serving (HTML, CSS, JS)
 -   CORS support for cross-origin requests
 -   Health check and status monitoring
 -   Chat processing with SPARQL generation
@@ -36,15 +38,25 @@ The new setup consists of:
 
 ## Quick Start
 
-### 1. Start the Backend Server
+### Single Command Setup
 
-Run the backend server using the provided batch file:
+Run the entire application (both frontend and backend) using the unified batch file:
 
 ```bash
-run_backend.bat
+run_app.bat
 ```
 
-Or manually:
+This will:
+
+1. Start the Flask backend server on `http://localhost:5000`
+2. Automatically open the frontend in your default browser
+3. Serve both API endpoints and frontend files from the same server
+
+### Manual Setup (Alternative)
+
+If you prefer to run components separately:
+
+#### 1. Start the Backend Server
 
 ```bash
 # Create and activate virtual environment
@@ -58,17 +70,17 @@ pip install -r requirements.txt
 python backend/app.py
 ```
 
-The backend will start on `http://localhost:5000`
+The backend will start on `http://localhost:5000` and serve both API endpoints and frontend files.
 
-### 2. Open the Frontend
+#### 2. Access the Frontend
 
-Open the frontend in your browser using the provided batch file:
+Open your browser and navigate to:
 
-```bash
-open_frontend.bat
+```
+http://localhost:5000
 ```
 
-Or manually open `frontend/index.html` in your web browser.
+The backend server will serve the frontend files directly.
 
 ## API Endpoints
 
@@ -103,15 +115,17 @@ Or manually open `frontend/index.html` in your web browser.
 ```
 Agentic_AI_with_memory/
 ├── backend/
-│   └── app.py                 # Flask backend server
+│   └── app.py                 # Flask backend server (serves API + frontend)
 ├── frontend/
 │   ├── index.html            # Main HTML file
 │   ├── styles.css            # CSS styling
 │   └── script.js             # JavaScript functionality
-├── src/                      # Core chatbot logic (unchanged)
+├── src/                      # Core chatbot logic
 ├── requirements.txt          # Python dependencies
-├── run_backend.bat          # Backend startup script
-├── open_frontend.bat        # Frontend launcher
+├── run_app.bat              # Unified startup script
+├── run_backend.bat          # Backend-only startup script (optional)
+├── run_main.bat             # Main application script (optional)
+├── run_tests.bat            # Test runner script (optional)
 └── README_FRONTEND_BACKEND.md # This file
 ```
 
@@ -119,9 +133,9 @@ Agentic_AI_with_memory/
 
 ### Backend Configuration
 
-The backend uses the same configuration as the original Streamlit app:
+The backend uses the same configuration as:
 
--   Stardog connection settings in `src/config/settings.py`
+-   Stardog connection settings in `src/config/settings.py` using the env in root folder.
 -   OpenAI API key for LLM functionality
 -   Database and authentication credentials
 
@@ -137,13 +151,20 @@ Change this if your backend runs on a different port or host.
 
 ## Usage
 
-1. **Start the backend server** - This initializes the Stardog connection and agent
-2. **Open the frontend** - The interface will automatically check connection status
-3. **Ask questions** - Type your questions in natural language
-4. **View SPARQL queries** - Generated queries appear in the sidebar
-5. **Manage memory** - Use the action buttons to clear memory or refresh schema
+1. **Run the application** - Execute `run_app.bat` to start everything
+2. **Wait for initialization** - The backend will initialize the Stardog connection and agent
+3. **Browser opens automatically** - The frontend will open in your default browser
+4. **Ask questions** - Type your questions in natural language
+5. **View SPARQL queries** - Generated queries appear in the sidebar
+6. **Manage memory** - Use the action buttons to clear memory or refresh schema
 
 ## Troubleshooting
+
+### Application Startup Issues
+
+-   **Virtual environment not found**: Run `python -m venv .venv` to create it
+-   **Python not found**: Ensure Python is installed and in your PATH
+-   **Port 5000 in use**: The backend will show an error if the port is occupied
 
 ### Backend Issues
 
@@ -162,6 +183,7 @@ Change this if your backend runs on a different port or host.
 1. **"Agent not initialized"**: Backend failed to connect to Stardog
 2. **"Network error"**: Backend server is not running
 3. **"Failed to copy query"**: Browser clipboard permissions may be required
+4. **"404 Not Found"**: Ensure you're accessing `http://localhost:5000` (not `file://` URLs)
 
 ## Development
 
@@ -176,6 +198,12 @@ Change this if your backend runs on a different port or host.
 -   **Styling**: Modify `frontend/styles.css` for visual changes
 -   **Functionality**: Update `frontend/script.js` for behavior changes
 -   **API**: Extend `backend/app.py` for new backend features
+
+### Running Individual Components
+
+-   **Backend only**: Use `run_backend.bat` or `python backend/app.py`
+-   **Main application**: Use `run_main.bat` for the original Streamlit interface
+-   **Tests**: Use `run_tests.bat` to run test suites
 
 ## Security Considerations
 
@@ -194,3 +222,4 @@ For issues or questions:
 1. Check the troubleshooting section above
 2. Review the original Streamlit implementation for reference
 3. Check browser console and backend logs for error details
+4. Ensure you're using the unified `run_app.bat` for the simplest setup
