@@ -117,16 +117,16 @@ Agentic_AI_with_memory/
 ├── backend/
 │   └── app.py                 # Flask backend server (serves API + frontend)
 ├── frontend/
-│   ├── index.html            # Main HTML file
-│   ├── styles.css            # CSS styling
-│   └── script.js             # JavaScript functionality
-├── src/                      # Core chatbot logic
-├── requirements.txt          # Python dependencies
-├── run_app.bat              # Unified startup script
-├── run_backend.bat          # Backend-only startup script (optional)
-├── run_main.bat             # Main application script (optional)
-├── run_tests.bat            # Test runner script (optional)
+│   ├── index.html             # Main HTML file
+│   ├── styles.css             # CSS styling
+│   └── script.js              # JavaScript functionality
+├── src/                       # Core chatbot logic
+├── requirements.txt           # Python dependencies
+├── run_app.bat                # Unified startup script
+├── run_backend.bat            # Backend-only startup script (optional)
+├── run_tests.bat              # Test runner script (optional)
 └── README_FRONTEND_BACKEND.md # This file
+└── README_AGENTIC_AI.md       # Read me for agentic AI usage
 ```
 
 ## Configuration
@@ -202,7 +202,6 @@ Change this if your backend runs on a different port or host.
 ### Running Individual Components
 
 -   **Backend only**: Use `run_backend.bat` or `python backend/app.py`
--   **Main application**: Use `run_main.bat` for the original Streamlit interface
 -   **Tests**: Use `run_tests.bat` to run test suites
 
 ## Security Considerations
@@ -220,6 +219,5 @@ Change this if your backend runs on a different port or host.
 For issues or questions:
 
 1. Check the troubleshooting section above
-2. Review the original Streamlit implementation for reference
-3. Check browser console and backend logs for error details
-4. Ensure you're using the unified `run_app.bat` for the simplest setup
+2. Check browser console and backend logs for error details
+3. Ensure you're using the unified `run_app.bat` for the simplest setup
